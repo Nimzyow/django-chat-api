@@ -24,5 +24,6 @@ def get_chat_messages_view(request: HttpRequest, *args, **kwargs):
 
 def delete_chat_message_view(request: HttpRequest, *args, **kwargs):
     return HttpResponse(
-        f"Delete chat message view! with chat_id of {kwargs['chat_id']} and a message_id of {kwargs['message_id']}"
+        f"Delete chat message view! with chat_id of {kwargs['chat_id']}"
+        + f" and a message_id of {kwargs['message_id']}"
     )
