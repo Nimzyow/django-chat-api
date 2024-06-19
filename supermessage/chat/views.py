@@ -7,12 +7,12 @@ def start_new_chat_view(request: HttpRequest):
 
 
 def get_chat_details_view(request: HttpRequest, *args, **kwargs):
-    return HttpResponse("Get chat details view! with chat_id of {kwargs['chat_id']}")
+    return HttpResponse(f"Get chat details view! with chat_id of {kwargs['chat_id']}")
 
 
 def post_message_view(request: HttpRequest, *args, **kwargs):
     return HttpResponse(
-        "Post a new message in a chat! with chat_id of {kwargs['chat_id']}"
+        f"Post a new message in a chat! with chat_id of {kwargs['chat_id']}"
     )
 
 
