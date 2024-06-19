@@ -14,14 +14,14 @@ The plan so far is to have the following endpoints.
   <td>Start new chat</td>
 </tr>
 <tr>
-  <td>POST</td>
-  <td>/chat/{chat_id}/message</td>
-  <td>Post a new message in a chat</td>
-</tr>
-<tr>
   <td>GET</td>
   <td>/chat/{chat_id}</td>
   <td>Get chat details</td>
+</tr>
+<tr>
+  <td>POST</td>
+  <td>/chat/{chat_id}/message</td>
+  <td>Post a new message in a chat</td>
 </tr>
 <tr>
   <td>GET</td>
