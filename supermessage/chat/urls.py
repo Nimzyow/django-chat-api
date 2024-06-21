@@ -14,7 +14,7 @@ urlpatterns = [
         r"^chat/(?P<chat_id>\d+)/$", get_chat_details_view, name="get_chat_details"
     ),
     re_path(
-        r"^chat/(?P<chat_id>\d+)/messages/$",
+        r"^chat/(?P<channel_id>[A-Za-z0-9]+)/messages$",
         get_chat_messages_view,
         name="get_chat_messages",
     ),

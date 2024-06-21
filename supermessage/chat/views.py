@@ -35,7 +35,19 @@ def post_message_in_conversation_view(request: Request, *args, **kwargs):
 
 @api_view(["GET"])
 def get_chat_messages_view(request: Request, *args, **kwargs):
-    return Response(f"Get chat messagesss view! with chat_id of {kwargs['chat_id']}")
+    client = WebClient(token=SLACK_URL)
+    response = client.conversations_history(
+        channel=kwargs['channel_id'].upper()
+    )
+    content = []
+    for item in response.data["messages"]:
+        content.append(
+            {
+                "text": item["text"],
+                "ts": item["ts"],
+            }
+        )
+    return Response(content, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
