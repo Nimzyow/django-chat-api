@@ -16,8 +16,8 @@ def open_conversation_view(request: Request, *args, **kwargs):
     client = generate_slack_client()
     channel_id = kwargs["channel_id"]
     users = request.data["users"]
-    response = client.conversations_open(users=users, return_im=True)
-    print(response)
+
+    client.conversations_open(users=users, return_im=True)
     content = {"message": f"Succesfully opened channel: '{channel_id}'"}
 
     return Response(content, status=status.HTTP_200_OK)
