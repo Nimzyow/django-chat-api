@@ -33,8 +33,9 @@ def get_chat_messages_view(request: Request, *args, **kwargs):
 @api_view(["POST"])
 def post_join_new_conversation(request: Request, *args, **kwargs):
     client = WebClient(token=SLACK_URL)
-    response = client.conversations_join(channel=kwargs["channel_id"])
+    response = client.conversations_join(channel=kwargs["channel_id"].upper())
     content = {"message": f"Joined '{response['channel']['name']}' channel"}
+
     return Response(content, status=status.HTTP_200_OK)
 
 
