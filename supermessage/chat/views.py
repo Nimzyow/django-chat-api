@@ -7,10 +7,20 @@ from slack_sdk import WebClient
 from supermessage.settings import SLACK_URL
 
 
-# Create your views here.
+def generate_slack_client():
+    return WebClient(token=SLACK_URL)
+
+
 @api_view(["POST"])
-def start_new_conversation_view(request: Request):
-    return Response("start new chat view!")
+def open_conversation_view(request: Request, *args, **kwargs):
+    client = generate_slack_client()
+    channel_id = kwargs["channel_id"]
+    users = request.data["users"]
+    response = client.conversations_open(users=users, return_im=True)
+    print(response)
+    content = {"message": f"Succesfully opened channel: '{channel_id}'"}
+
+    return Response(content, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -20,7 +30,7 @@ def get_conversation_details_view(request: Request, *args, **kwargs):
 
 @api_view(["POST"])
 def post_conversation_message_view(request: Request, *args, **kwargs):
-    client = WebClient(token=SLACK_URL)
+    client = generate_slack_client()
     text = request.data["text"]
     if not text:
         content = {"message": "please enter text in body"}
@@ -34,7 +44,7 @@ def post_conversation_message_view(request: Request, *args, **kwargs):
 
 @api_view(["GET"])
 def get_conversation_messages_view(request: Request, *args, **kwargs):
-    client = WebClient(token=SLACK_URL)
+    client = generate_slack_client()
     response = client.conversations_history(channel=kwargs["channel_id"].upper())
     content = []
     for item in response.data["messages"]:
@@ -51,7 +61,7 @@ def get_conversation_messages_view(request: Request, *args, **kwargs):
 
 @api_view(["POST"])
 def post_join_new_conversation(request: Request, *args, **kwargs):
-    client = WebClient(token=SLACK_URL)
+    client = generate_slack_client()
     response = client.conversations_join(channel=kwargs["channel_id"].upper())
     content = {"message": f"Joined '{response['channel']['name']}' channel"}
 
@@ -60,7 +70,7 @@ def post_join_new_conversation(request: Request, *args, **kwargs):
 
 @api_view(["DELETE"])
 def delete_conversation_message_view(request: Request, *args, **kwargs):
-    client = WebClient(token=SLACK_URL)
+    client = generate_slack_client()
     client.chat_delete(channel=kwargs["channel_id"].upper(), ts=request.data["ts"])
     content = {"message": "Message successfully deleted"}
 
