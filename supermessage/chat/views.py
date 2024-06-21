@@ -9,17 +9,17 @@ from supermessage.settings import SLACK_URL
 
 # Create your views here.
 @api_view(["POST"])
-def start_new_chat_view(request: Request):
+def start_new_conversation_view(request: Request):
     return Response("start new chat view!")
 
 
 @api_view(["GET"])
-def get_chat_details_view(request: Request, *args, **kwargs):
+def get_conversation_details_view(request: Request, *args, **kwargs):
     return Response(f"Get chat details view! with chat_id of {kwargs['chat_id']}")
 
 
 @api_view(["POST"])
-def post_message_in_conversation_view(request: Request, *args, **kwargs):
+def post_conversation_message_view(request: Request, *args, **kwargs):
     client = WebClient(token=SLACK_URL)
     text = request.data["text"]
     if not text:
@@ -34,7 +34,7 @@ def post_message_in_conversation_view(request: Request, *args, **kwargs):
 
 
 @api_view(["GET"])
-def get_chat_messages_view(request: Request, *args, **kwargs):
+def get_conversation_messages_view(request: Request, *args, **kwargs):
     client = WebClient(token=SLACK_URL)
     response = client.conversations_history(
         channel=kwargs['channel_id'].upper()
@@ -60,7 +60,7 @@ def post_join_new_conversation(request: Request, *args, **kwargs):
 
 
 @api_view(["DELETE"])
-def delete_chat_message_view(request: Request, *args, **kwargs):
+def delete_conversation_message_view(request: Request, *args, **kwargs):
     return Response(
         f"Delete chat message view! with chat_id of {kwargs['chat_id']}"
         + f" and a message_id of {kwargs['message_id']}"
