@@ -3,7 +3,7 @@ from chat.views import (
     get_chat_details_view,
     get_chat_messages_view,
     post_join_new_conversation,
-    post_message_view,
+    post_message_in_conversation_view,
     start_new_chat_view,
 )
 from django.urls import re_path
@@ -19,7 +19,9 @@ urlpatterns = [
         name="get_chat_messages",
     ),
     re_path(
-        r"^chat/(?P<chat_id>\d+)/message/$", post_message_view, name="post_chat_message"
+        r"^chat/(?P<channel_id>[A-Za-z0-9]+)/message$",
+        post_message_in_conversation_view,
+        name="post_chat_message",
     ),
     re_path(
         r"^chat/(?P<chat_id>\d+)/messages/(?P<message_id>\d+)/$",

@@ -19,10 +19,18 @@ def get_chat_details_view(request: Request, *args, **kwargs):
 
 
 @api_view(["POST"])
-def post_message_view(request: Request, *args, **kwargs):
-    return Response(
-        f"Post a new message in a chat! with chat_id of {kwargs['chat_id']}"
+def post_message_in_conversation_view(request: Request, *args, **kwargs):
+    client = WebClient(token=SLACK_URL)
+    text = request.data["text"]
+    if not text:
+        content = {"message": "please enter text in body"}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    client.chat_postMessage(
+        channel=kwargs['channel_id'].upper(), text=text
     )
+    content = {"message": f"Succesfully sent message of: '{text}' to channel"}
+
+    return Response(content, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
