@@ -22,6 +22,60 @@ Copy `params_example.ini` and rename new file to `params.ini`.
 
 inside `params.ini`, set `YOUR_SLACK_TOKEN` to your slack token.
 
+## Requirements
+
+### API Specifications
+<table>
+  <tr>
+    <th>
+      Spec
+    </th>
+    <th>
+      Status
+    </th>
+  </tr>
+  <tr>
+    <td>
+      Enable one-on-one chat
+    </td>
+    <td>
+      Enabled
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Enable group chats with multiple people
+    </td>
+    <td>
+      Enabled
+    </td>
+  </tr>
+  <tr>
+    <td>
+      fetching list of messages
+    </td>
+    <td>
+      Enabled
+    </td>
+  </tr>
+  <tr>
+    <td>
+      posting messages
+    </td>
+    <td>
+      Enabled
+    </td>
+  </tr>
+  <tr>
+    <td>
+      deleting messages
+    </td>
+    <td>
+      Enabled
+    </td>
+  </tr>
+</table>
+
 ## Plan
 
 The plan so far is to have the following endpoints.
@@ -29,43 +83,43 @@ The plan so far is to have the following endpoints.
 <table>
   <tr>
     <th>REQUEST</th>
-    <th>API</th>
+    <th>URL</th>
+    <th>BODY</th>
     <th>NOTES</th>
   </tr>
 <tr>
   <td>POST</td>
-  <td>/chat</td>
-  <td>Start new chat</td>
+  <td>/chat/open</td>
+  <td>{"users": ["user_id_one", "user_id_two"]}</td>
+  <td>Start new chat with users. Chat ID in response</td>
 </tr>
 <tr>
   <td>GET</td>
   <td>/chat/{chat_id}</td>
   <td>Get chat details</td>
+  <td>Not yet implemented</td>
 </tr>
 <tr>
   <td>POST</td>
   <td>/chat/{chat_id}/message</td>
-  <td>Post a new message in a chat</td>
+  <td>{"text": "random text"}</td>
+  <td>Create new message in channel</td>
 </tr>
 <tr>
   <td>GET</td>
   <td>/chat/{chat_id}/messages</td>
-  <td>Get all messages in a chat</td>
+  <td></td>
+  <td>Get conversation history. Includes "ts" in reponse for deletion of message.</td>
 </tr>
 <tr>
   <td>DELETE</td>
-  <td>/chat/{chat_id}/messages/{message_id}</td>
+  <td>/chat/{chat_id}</td>
+  <td>{"ts": "12341234.32234"}</td>
   <td>Delete a specific message from a chat</td>
 </tr>
 </table>
 
 ## Note
-
-Take into consideration auth. Most likely we'll need to gain a token of some sorts. Possibly:
- 
-  * /auth/login
-
-We will retrieve the token and send it through the body of any request. I'm just guessing that's how the Slack API works at this point.
 
 After reading Slacks documentation, signing up to slack, creating a bot and assiging permissions for the token
 
@@ -78,11 +132,21 @@ Go to OAuth & Permissions. Set Bot Token Scopes:
 * app_mentions:read
 * channels:history
 * channels:join
+* channels:manage
 * channels:read
 * chat:write
+* groups:history
+* groups:read
+* groups:write
+* im:history
 * im:read
+* im:write
+* mpim:history
+* mpim:read
+* mpim:write
 * users.profile:read
 * users:read
+
 
 We need to get a channel ID to post a message to
 

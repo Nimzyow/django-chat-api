@@ -14,11 +14,11 @@ def generate_slack_client():
 @api_view(["POST"])
 def open_conversation_view(request: Request, *args, **kwargs):
     client = generate_slack_client()
-    channel_id = kwargs["channel_id"]
     users = request.data["users"]
 
-    client.conversations_open(users=users, return_im=True)
-    content = {"message": f"Succesfully opened channel: '{channel_id}'"}
+    response = client.conversations_open(users=users, return_im=True)
+    channel_id = response.data["channel"]["id"]
+    content = {"message": f"Succesfully opened channel with ID: '{channel_id}'"}
 
     return Response(content, status=status.HTTP_200_OK)
 
@@ -55,15 +55,6 @@ def get_conversation_messages_view(request: Request, *args, **kwargs):
                 "ts": item["ts"],
             }
         )
-
-    return Response(content, status=status.HTTP_200_OK)
-
-
-@api_view(["POST"])
-def post_join_new_conversation(request: Request, *args, **kwargs):
-    client = generate_slack_client()
-    response = client.conversations_join(channel=kwargs["channel_id"].upper())
-    content = {"message": f"Joined '{response['channel']['name']}' channel"}
 
     return Response(content, status=status.HTTP_200_OK)
 
