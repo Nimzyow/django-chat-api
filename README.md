@@ -43,5 +43,19 @@ Take into consideration auth. Most likely we'll need to gain a token of some sor
 
 We will retrieve the token and send it through the body of any request. I'm just guessing that's how the Slack API works at this point.
 
+After reading Slacks documentation, signing up to slack, creating a bot and assiging permissions for the token
 
+Go to https://api.slack.com/apps
 
+Create app and select app.
+
+Go to OAuth & Permissions. Set Bot Token Scopes:
+
+* app_mentions:read
+* channels:history
+* channels:join
+* channels:read
+* chat:write
+* im:read
+* users.profile:read
+* users:read
