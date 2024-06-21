@@ -130,6 +130,8 @@ body {
     "text": "Hello world!"
 }
 ```
+Note: CHANNEL_ID can be replaced with a user id to send a DM to a user.
 
 We'll utilise the python slack SDK to make the above calls. Each call will be contained in their relevant view.
+
 

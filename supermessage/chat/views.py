@@ -40,6 +40,7 @@ def get_conversation_messages_view(request: Request, *args, **kwargs):
     for item in response.data["messages"]:
         content.append(
             {
+                "user": item["user"],
                 "text": item["text"],
                 "ts": item["ts"],
             }
