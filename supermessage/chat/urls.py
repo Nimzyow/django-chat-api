@@ -27,7 +27,7 @@ urlpatterns = [
         name="delete_chat_message",
     ),
     re_path(
-        "join",
+        r"^join/(?P<channel_id>\d+)/$",
         post_join_new_conversation,
         name="join_new_channel",
     ),
