@@ -1,5 +1,29 @@
 # API to interface with Slack
 
+## Setup
+
+```bash
+# Create a python environment
+
+python3 -m venv .venv
+
+source ./.venv/bin/activate
+```
+
+```bash
+# Install dependencies
+
+pip install -r requirements.txt
+```
+
+You will need to create a params.ini file. 
+
+Copy `params_example.ini` and rename new file to `params.ini`.
+
+inside `params.ini`, set `YOUR_SLACK_TOKEN` to your slack token.
+
+## Plan
+
 The plan so far is to have the following endpoints.
 
 <table>
