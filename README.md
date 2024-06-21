@@ -130,3 +130,6 @@ body {
     "text": "Hello world!"
 }
 ```
+
+We'll utilise the python slack SDK to make the above calls. Each call will be contained in their relevant view.
+
