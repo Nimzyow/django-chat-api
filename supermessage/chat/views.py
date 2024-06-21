@@ -25,7 +25,7 @@ def get_chat_messages_view(request: HttpRequest, *args, **kwargs):
     )
 
 
-def post_join_new_channel(request: HttpRequest, *args, **kwargs):
+def post_join_new_conversation(request: HttpRequest, *args, **kwargs):
     client = WebClient(token=SLACK_URL)
     response = client.conversations_join(channel="C078F8L651V")
     print(response)

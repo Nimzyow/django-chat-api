@@ -2,7 +2,7 @@ from chat.views import (
     delete_chat_message_view,
     get_chat_details_view,
     get_chat_messages_view,
-    post_join_new_channel,
+    post_join_new_conversation,
     post_message_view,
     start_new_chat_view,
 )
@@ -28,7 +28,7 @@ urlpatterns = [
     ),
     re_path(
         "join",
-        post_join_new_channel,
+        post_join_new_conversation,
         name="join_new_channel",
     ),
 ]
