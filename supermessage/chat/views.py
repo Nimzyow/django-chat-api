@@ -1,4 +1,5 @@
 from django.http import HttpRequest, HttpResponse
+from slack_sdk import WebClient
 
 
 # Create your views here.
@@ -19,6 +20,15 @@ def post_message_view(request: HttpRequest, *args, **kwargs):
 def get_chat_messages_view(request: HttpRequest, *args, **kwargs):
     return HttpResponse(
         f"Get chat messagesss view! with chat_id of {kwargs['chat_id']}"
+    )
+
+
+def post_join_new_channel(request: HttpRequest, *args, **kwargs):
+    client = WebClient(token="YOUR_TOKEN")
+    response = client.conversations_join(channel="C078F8L651V")
+    print(response)
+    return HttpResponse(
+       "Joined channel"
     )
 
 

@@ -59,3 +59,50 @@ Go to OAuth & Permissions. Set Bot Token Scopes:
 * im:read
 * users.profile:read
 * users:read
+
+We need to get a channel ID to post a message to
+
+```
+GET https://slack.com/api/conversations.list?=
+
+Headers:
+  - Authorization:  Bearer MY_TOKEN
+
+Output:
+{
+    "ok": true,
+    "channel": {
+        "id": "CHANNEL_ID",
+        "name": "best-project",
+        ...
+
+```
+
+The bot needs to join a channel
+
+```
+POST https://slack.com/api/conversations.join
+
+Headers:
+  - Content-Type:   application/json
+  - Authorization:  Bearer MY_TOKEN
+
+body = {
+    "channel": "CHANNEL_ID"
+}
+```
+
+Then the bot can send a message to a channel
+
+```
+POST https://slack.com/api/chat.postMessage
+
+Headers:
+  - Content-Type:   application/json
+  - Authorization:  Bearer MY_TOKEN
+
+body {
+    "channel": "CHANNEL_ID",
+    "text": "Hello world!"
+}
+```

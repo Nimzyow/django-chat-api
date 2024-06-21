@@ -2,6 +2,7 @@ from chat.views import (
     delete_chat_message_view,
     get_chat_details_view,
     get_chat_messages_view,
+    post_join_new_channel,
     post_message_view,
     start_new_chat_view,
 )
@@ -24,5 +25,10 @@ urlpatterns = [
         r"^chat/(?P<chat_id>\d+)/messages/(?P<message_id>\d+)/$",
         delete_chat_message_view,
         name="delete_chat_message",
+    ),
+    re_path(
+        "join",
+        post_join_new_channel,
+        name="join_new_channel",
     ),
 ]
