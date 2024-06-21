@@ -25,9 +25,7 @@ def post_conversation_message_view(request: Request, *args, **kwargs):
     if not text:
         content = {"message": "please enter text in body"}
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
-    client.chat_postMessage(
-        channel=kwargs['channel_id'].upper(), text=text
-    )
+    client.chat_postMessage(channel=kwargs["channel_id"].upper(), text=text)
     content = {"message": f"Succesfully sent message of: '{text}' to channel"}
 
     return Response(content, status=status.HTTP_200_OK)
@@ -36,9 +34,7 @@ def post_conversation_message_view(request: Request, *args, **kwargs):
 @api_view(["GET"])
 def get_conversation_messages_view(request: Request, *args, **kwargs):
     client = WebClient(token=SLACK_URL)
-    response = client.conversations_history(
-        channel=kwargs['channel_id'].upper()
-    )
+    response = client.conversations_history(channel=kwargs["channel_id"].upper())
     content = []
     for item in response.data["messages"]:
         content.append(
@@ -61,7 +57,8 @@ def post_join_new_conversation(request: Request, *args, **kwargs):
 
 @api_view(["DELETE"])
 def delete_conversation_message_view(request: Request, *args, **kwargs):
-    return Response(
-        f"Delete chat message view! with chat_id of {kwargs['chat_id']}"
-        + f" and a message_id of {kwargs['message_id']}"
-    )
+    client = WebClient(token=SLACK_URL)
+    client.chat_delete(channel=kwargs["channel_id"].upper(), ts=request.data["ts"])
+    content = {"message": "Message successfully deleted"}
+
+    return Response(content, status=status.HTTP_200_OK)

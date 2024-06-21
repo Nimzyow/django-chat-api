@@ -24,7 +24,7 @@ urlpatterns = [
         name="post_chat_message",
     ),
     re_path(
-        r"^chat/(?P<chat_id>\d+)/messages/(?P<message_id>\d+)/$",
+        r"^chat/(?P<channel_id>[A-Za-z0-9]+)$",
         delete_conversation_message_view,
         name="delete_chat_message",
     ),
