@@ -25,6 +25,7 @@ def post_conversation_message_view(request: Request, *args, **kwargs):
     if not text:
         content = {"message": "please enter text in body"}
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
     client.chat_postMessage(channel=kwargs["channel_id"].upper(), text=text)
     content = {"message": f"Succesfully sent message of: '{text}' to channel"}
 
@@ -43,6 +44,7 @@ def get_conversation_messages_view(request: Request, *args, **kwargs):
                 "ts": item["ts"],
             }
         )
+
     return Response(content, status=status.HTTP_200_OK)
 
 
