@@ -24,6 +24,8 @@ inside `params.ini`, set `YOUR_SLACK_TOKEN` to your slack token.
 
 ## Requirements
 
+
+
 ### API Specifications
 <table>
   <tr>
@@ -74,6 +76,30 @@ inside `params.ini`, set `YOUR_SLACK_TOKEN` to your slack token.
       Enabled
     </td>
   </tr>
+  <tr>
+    <td>
+      check whether messages are read or unread
+    </td>
+    <td>
+      Not enabled
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Notify necessary users when a message is posted
+    </td>
+    <td>
+      Not enabled
+    </td>
+  </tr>
+  <tr>
+    <td>
+      User can set notifications to push, email or no notifications
+    </td>
+    <td>
+      Not enabled
+    </td>
+  </tr>
 </table>
 
 ## Plan
@@ -87,6 +113,12 @@ The plan so far is to have the following endpoints.
     <th>BODY</th>
     <th>NOTES</th>
   </tr>
+<tr>
+  <td>POST</td>
+  <td>/users/register</td>
+  <td>{"username": "test","password": "testingthisthing","email": "test@example.com"}</td>
+  <td>Creates new user</td>
+</tr>
 <tr>
   <td>POST</td>
   <td>/chat/open</td>
