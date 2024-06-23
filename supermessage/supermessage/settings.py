@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'users'
 ]
 
@@ -125,3 +126,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 SLACK_URL = config.get("general", "slack_token")
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
