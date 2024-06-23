@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework.authtoken.views import obtain_auth_token
-from users.views import UserCreate, get_notification_view
+from users.views import UserCreate, notification_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("chat.urls")),
     path("users/register", UserCreate.as_view()),
     path('users/login', obtain_auth_token, name='api_token_auth'),
-    path("users/notification", get_notification_view, name="get_notification")
+    path("users/notification", notification_view, name="get_notification"),
 ]
