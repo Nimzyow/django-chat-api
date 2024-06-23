@@ -22,8 +22,65 @@ Copy `params_example.ini` and rename new file to `params.ini`.
 
 inside `params.ini`, set `YOUR_SLACK_TOKEN` to your slack token.
 
-## Requirements
+```bash
+# migrate database
 
+cd supermessage
+
+python manage.py migrate
+```
+
+```bash
+# create super user
+
+python manage.py createsuperuser
+
+```
+
+You will be required to setup a Slack bot to send messages to slack channels or users.
+
+Go to https://api.slack.com/apps
+
+Create app and select app.
+
+Go to OAuth & Permissions. Set Bot Token Scopes:
+
+* app_mentions:read
+* channels:history
+* channels:join
+* channels:manage
+* channels:read
+* chat:write
+* groups:history
+* groups:read
+* groups:write
+* im:history
+* im:read
+* im:write
+* mpim:history
+* mpim:read
+* mpim:write
+* users.profile:read
+* users:read
+
+Get token for slack bot
+
+```bash
+# create params.ini file to store slack bot token
+
+cp ./params_example.ini ./params.ini
+
+# replace YOUR_SLACK_TOKEN with your slack bot token
+
+```
+
+```bash
+# start Django server
+
+python manage.py runserver
+
+# You will now be able to log in with super user credentials at http://localhost:8000/admin
+```
 
 
 ### API Specifications
@@ -117,14 +174,14 @@ The plan so far is to have the following endpoints.
 <tr>
   <td>POST</td>
   <td>/users/register</td>
-  <td>{"username": "test","password": "testingthisthing","email": "test@example.com"}</td>
+  <td>{"username": "test","password": "testingthisthing", "email": "test@example.com"}</td>
   <td></td>
   <td>Creates new user</td>
 </tr>
 <tr>
   <td>POST</td>
   <td>/users/login</td>
-  <td>{"username": "test","password": "testingthisthing"}</td>
+  <td>{"username": "test", "password": "testingthisthing"}</td>
   <td></td>
   <td>Logs in and returns token</td>
 </tr>
@@ -163,7 +220,30 @@ The plan so far is to have the following endpoints.
   <td>YES</td>
   <td>Delete a specific message from a chat</td>
 </tr>
+<tr>
+  <td>POST</td>
+  <td>/chat/open</td>
+  <td>{"users": ["user_id_one", "user_id_two"]}</td>
+  <td>YES</td>
+  <td>Create new private conversation with users. Returns channel ID</td>
+</tr>
+<tr>
+  <td>GET</td>
+  <td>/users/notification</td>
+  <td></td>
+  <td>YES</td>
+  <td>Gets notification setting for logged inuser</td>
+</tr>
+<tr>
+  <td>PUT</td>
+  <td>/users/notification</td>
+  <td>{"notification_option": "email" or "push" or "no"}</td>
+  <td>YES</td>
+  <td>Sets notification setting for user</td>
+</tr>
 </table>
+
+Example of authorization header: `Authorization: Token YOUR_TOKEN_HERE`
 
 ## Note
 
