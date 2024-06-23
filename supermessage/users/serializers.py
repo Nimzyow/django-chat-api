@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from users.models import Notification
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -13,4 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
         user = User(**validated_data)
         user.set_password(password)
         user.save()
+        notification = Notification.objects.create(user=user)
+        notification.save()
         return user

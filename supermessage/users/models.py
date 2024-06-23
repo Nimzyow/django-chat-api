@@ -10,4 +10,8 @@ class Notification(models.Model):
     )
 
     user = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
-    consent = models.CharField(max_length=5, choices=NOTIFICATION_OPTIONS, default="no")
+    notification_option = models.CharField(max_length=5, choices=NOTIFICATION_OPTIONS, default="no")
+
+    def __str__(self):
+        return "%s %s" % (self.user.first_name, self.user.last_name)
+    
