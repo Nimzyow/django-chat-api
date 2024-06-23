@@ -16,15 +16,9 @@ from users.serializers import UserSerializer
 
 # from rest_framework.views import APIView
 
-
-# create user
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
-# class NotificationCreate(APIView):
-#     authentication_classes = [authentication.TokenAuthentication]
 
 
 @api_view(["GET", "PUT"])
