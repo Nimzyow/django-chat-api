@@ -97,7 +97,7 @@ inside `params.ini`, set `YOUR_SLACK_TOKEN` to your slack token.
       User can set notifications to push, email or no notifications
     </td>
     <td>
-      Not enabled
+      Enabled
     </td>
   </tr>
 </table>
@@ -111,42 +111,56 @@ The plan so far is to have the following endpoints.
     <th>REQUEST</th>
     <th>URL</th>
     <th>BODY</th>
+    <th>AUTHORIZATION HEADER REQUIRED</th>
     <th>NOTES</th>
   </tr>
 <tr>
   <td>POST</td>
   <td>/users/register</td>
   <td>{"username": "test","password": "testingthisthing","email": "test@example.com"}</td>
+  <td></td>
   <td>Creates new user</td>
+</tr>
+<tr>
+  <td>POST</td>
+  <td>/users/login</td>
+  <td>{"username": "test","password": "testingthisthing"}</td>
+  <td></td>
+  <td>Logs in and returns token</td>
 </tr>
 <tr>
   <td>POST</td>
   <td>/chat/open</td>
   <td>{"users": ["user_id_one", "user_id_two"]}</td>
+  <td>YES</td>
   <td>Start new chat with users. Chat ID in response</td>
 </tr>
 <tr>
   <td>GET</td>
   <td>/chat/{chat_id}</td>
   <td>Get chat details</td>
+  <td>YES</td>
   <td>Not yet implemented</td>
 </tr>
 <tr>
   <td>POST</td>
   <td>/chat/{chat_id}/message</td>
   <td>{"text": "random text"}</td>
+  <td>YES</td>
   <td>Create new message in channel</td>
 </tr>
 <tr>
   <td>GET</td>
   <td>/chat/{chat_id}/messages</td>
   <td></td>
+  <td>YES</td>
   <td>Get conversation history. Includes "ts" in reponse for deletion of message.</td>
 </tr>
 <tr>
   <td>DELETE</td>
   <td>/chat/{chat_id}</td>
   <td>{"ts": "12341234.32234"}</td>
+  <td>YES</td>
   <td>Delete a specific message from a chat</td>
 </tr>
 </table>
